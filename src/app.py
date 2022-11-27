@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+import users_dao
 
 
 from db import db
@@ -20,6 +21,7 @@ app.config["SQLALCHEMY_ECHO"] = True
 
 db.init_app(app)
 with app.app_context():
+    #db.drop_all()
     db.create_all()
 
 # generalized response formats
@@ -135,11 +137,16 @@ def create_user():
     if name is None:
         return json.dumps({"error" : "Name not found!"}), 400
     bio = body.get("bio")
-    # if bio is None:
-    #     return json.dumps({"error" : "Bio not found!"}), 400
+
     gradYear = body.get("gradYear")
     if gradYear is None:
         return json.dumps({"error" : "Graduation year not found!"}), 400
+
+    optional_user = users_dao.get_user_by_username(username)
+
+    if optional_user is not None:
+        return failure_response("User already exists", 400)
+
     new_user = User(
         username = username, 
         name = name, 
@@ -149,7 +156,63 @@ def create_user():
     )
     db.session.add(new_user)
     db.session.commit()
-    return json.dumps(new_user.serialize()), 201
+
+    return success_response(new_user.serialize())
+
+@app.route("/api/users/login/", methods=["POST"])
+def login():
+    """
+    Endpoint for logging in a user
+    """
+    body = json.loads(request.data)
+    username = body.get("username")
+    password = body.get("password")
+
+    if username is None or password is None:
+        return failure_response("Missing username or password", 400)
+    
+    success, user = users_dao.verify_credentials(username, password)
+
+    if not success:
+        return failure_response("Incorrect username or password", 401)
+
+    return success_response(user.serialize())
+
+@app.route("/api/users/session/", methods=["POST"])
+def update_session():
+    """
+    Endpoint for updating a user's session
+    """
+    success, update_token = extract_token(request)
+
+    success_user, user = users_dao.renew_session(update_token)
+
+    if not success_user:
+        return failure_response("Invalid update token", 400)
+
+    return success_response(user.serialize())
+
+@app.route("/api/users/logout/", methods=["POST"])
+def logout():
+    """
+    Endpoint for logging out a user
+    """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+
+    user.session_token = ""
+    user.session_expiration = datetime.now()
+    user.update_token = ""
+    db.session.commit()
+
+    return success_response({"message" : "You have successfully logged out"})
 
 @app.route("/api/users/<int:user_id>/")
 def get_user(user_id):

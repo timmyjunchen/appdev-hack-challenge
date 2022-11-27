@@ -171,7 +171,10 @@ class User(db.Model):
             "gradYear" : self.gradYear,
             "posts" : [post.serialize() for post in self.posts],
             "comments" : [comment.serialize() for comment in self.comments],
-            "courses" : [c.simple_serialize() for c in self.courses]
+            "courses" : [c.simple_serialize() for c in self.courses],
+            "session_token": self.session_token,
+            "session_expiration" : str(self.session_expiration),
+            "update_token" : self.update_token
         }
 
     def simple_serialize(self):
