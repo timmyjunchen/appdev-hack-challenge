@@ -128,36 +128,49 @@ def create_user():
     if user is not None:
         return json.dumps({"error" : "Username already exists!"}), 400
 
-
     password = body.get("password")
     if password is None:
         return json.dumps({"error": "Password not found!"}), 400
-    
-    name = body.get("name")
-    if name is None:
-        return json.dumps({"error" : "Name not found!"}), 400
-    bio = body.get("bio")
-
-    gradYear = body.get("gradYear")
-    if gradYear is None:
-        return json.dumps({"error" : "Graduation year not found!"}), 400
-
-    optional_user = users_dao.get_user_by_username(username)
-
-    if optional_user is not None:
-        return failure_response("User already exists", 400)
 
     new_user = User(
         username = username, 
-        name = name, 
-        bio = bio, 
-        gradYear = gradYear,
         password = password
     )
     db.session.add(new_user)
     db.session.commit()
 
     return success_response(new_user.serialize())
+
+@app.route("/api/users/<int:user_id>/", methods = ["POST"])
+def update_user(user_id):
+    """
+    Endpoint for updating the information for a user
+    """
+    body = json.loads(request.data)
+    user = User.query.filter_by(id = user_id).first()
+
+    if user is None:
+        return json.dumps({"error" : "User does not exist"}), 400
+
+    user.name = body.get("name", user.name)
+    
+    user.bio = body.get("bio", user.bio)
+
+    user.gradYear = body.get("gradYear", user.gradYear)
+    db.session.commit()
+    return json.dumps(user.serialize()), 200
+
+
+@app.route("/api/users/<int:user_id>/")
+def get_user(user_id):
+    """
+    Endpoint for getting a user by id
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return json.dumps({"error":"User not found!"}), 404
+
+    return json.dumps(user.serialize()), 200
 
 @app.route("/api/users/login/", methods=["POST"])
 def login():
@@ -214,17 +227,6 @@ def logout():
 
     return success_response({"message" : "You have successfully logged out"})
 
-@app.route("/api/users/<int:user_id>/")
-def get_user(user_id):
-    """
-    Endpoint for getting a user by id
-    """
-    user = User.query.filter_by(id = user_id).first()
-    if user is None:
-        return json.dumps({"error":"User not found!"}), 404
-
-    return json.dumps(user.serialize()), 200
-
 @app.route("/api/users/<int:user_id>/add/course/", methods = ["POST"])
 def add_course_to_user(user_id):
     """
@@ -249,8 +251,17 @@ def add_course_to_user(user_id):
 @app.route("/api/users/<int:user_id>/add/post/", methods = ["POST"])
 def create_post_for_user(user_id):
     """
-    Endpoint for creating a post for a user
+    Endpoint for creating a post for a user, requires authentication
     """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+    
     user = User.query.filter_by(id = user_id).first()
     if user is None:
         return json.dumps({"error" : "User not found!"}), 404
@@ -287,16 +298,34 @@ def create_post_for_user(user_id):
 @app.route("/api/posts/")
 def get_posts():
     """
-    Endpoint for getting all posts
+    Endpoint for getting all posts, requires authentication
     """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+    
     Posts = [post.serialize() for post in Post.query.all()]
     return json.dumps({"posts" : Posts}), 200
 
 @app.route("/api/posts/<int:post_id>/add/", methods = ["POST"])
 def create_comment_for_post(post_id):
     """
-    Endpoint for creating a comment for a post
+    Endpoint for creating a comment for a post, requires authentication
     """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+    
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
         return json.dumps({"error": "Post does not exist"}), 404
@@ -326,11 +355,72 @@ def create_comment_for_post(post_id):
 @app.route("/api/posts/<int:post_id>/")
 def get_comments_for_post(post_id):
     """
-    Endpoint for getting all the comments under a post
+    Endpoint for getting all the comments under a post, requires authentication
     """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+    
     Comments = [comment.serialize() for comment in Comment.query.filter_by(post_id = post_id)]
     return json.dumps({"comments" : Comments}), 200
     
+@app.route("/api/users/<int:user_id>/friend/<int:friend_id>/", methods = ["POST"])
+def friend_user(user_id, friend_id):
+    """
+    Endpoint for friending two users, requires authentication
+    """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+    
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return json.dumps({"error" : "User not found!"})
+    
+    friend = User.query.filter_by(id = friend_id).first()
+    if friend is None:
+        return json.dumps({"error" : "Friend not found!"})
+    
+    user.befriend(friend)
+    db.session.commit()
+    return json.dumps(user.serialize()), 200
+
+@app.route("/api/users/<int:user_id>/unfriend/<int:friend_id>/", methods = ["POST"])
+def unfriend_user(user_id, friend_id):
+    """
+    Endpoint for unfriending two users, requires authentication
+    """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+    
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return json.dumps({"error" : "User not found!"})
+    
+    friend = User.query.filter_by(id = friend_id).first()
+    if friend is None:
+        return json.dumps({"error" : "Friend not found!"})
+    
+    user.unfriend(friend)
+    db.session.commit()
+    return json.dumps(user.serialize()), 200
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

@@ -13,6 +13,13 @@ association_table_users = db.Table(
     db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
 )
 
+
+association_table_friends = db.Table(
+    'association_table_friends',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), index=True),
+    db.Column('friend_id', db.Integer, db.ForeignKey('user.id')),
+    db.UniqueConstraint('user_id', 'friend_id', name='unique_friendships'))
+
 # your classes here
 class Post(db.Model):
     """
@@ -141,12 +148,16 @@ class User(db.Model):
     session_expiration = db.Column(db.DateTime, nullable=False)
     update_token = db.Column(db.String, nullable=False, unique=True)
 
-    name = db.Column(db.String, nullable = False)
+    name = db.Column(db.String, nullable = True)
     bio = db.Column(db.String, nullable = True)
-    gradYear = db.Column(db.Integer, nullable = False)
+    gradYear = db.Column(db.Integer, nullable = True)
     posts = db.relationship("Post", cascade = "delete")
     comments = db.relationship("Comment", cascade = "delete")
     courses = db.relationship("Course", secondary = association_table_users, back_populates = "users")
+    friends = db.relationship('User',
+                           secondary=association_table_friends,
+                           primaryjoin=id==association_table_friends.c.user_id,
+                           secondaryjoin=id==association_table_friends.c.friend_id)
 
     def __init__ (self, **kwargs):
         """
@@ -172,6 +183,7 @@ class User(db.Model):
             "posts" : [post.serialize() for post in self.posts],
             "comments" : [comment.serialize() for comment in self.comments],
             "courses" : [c.simple_serialize() for c in self.courses],
+            "friends" : [f.simple_serialize() for f in self.friends],
             "session_token": self.session_token,
             "session_expiration" : str(self.session_expiration),
             "update_token" : self.update_token
@@ -190,6 +202,16 @@ class User(db.Model):
             "posts" : [post.serialize() for post in self.posts],
             "comments" : [comment.serialize() for comment in self.comments]
         }
+
+    def befriend(self, friend):
+        if friend not in self.friends:
+            self.friends.append(friend)
+            friend.friends.append(self)
+
+    def unfriend(self, friend):
+        if friend in self.friends:
+            self.friends.remove(friend)
+            friend.friends.remove(self)
     
     def _urlsafe_base_64(self):
         """
