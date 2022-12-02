@@ -1,0 +1,194 @@
+Introduction to Computing Using Python
+CS 1110
+Introduction to Computing Using MATLAB
+CS 1112
+Short Course in MATLAB
+CS 1132
+Short Course in Python
+CS 1133
+Introductory Design and Programming for the Web
+CS 1300
+Data Science for All
+CS 1380
+Elements of Artificial Intelligence
+CS 1700
+Introduction to Cognitive Science
+CS 1710
+Freshmen and Nontechnical Team Projects
+CS 1998
+UNIX Tools and Scripting
+CS 2043
+Object-Oriented Programming and Data Structures
+CS 2110
+Intermediate Design and Programming for the Web
+CS 2300
+Excursions in Computational Sustainability
+CS 2770
+Discrete Structures
+CS 2800
+Discrete Structures - Honors
+CS 2802
+Data Structures and Functional Programming
+CS 3110
+Introduction to Computer Game Architecture
+CS 3152
+Embedded Systems
+CS 3420
+Teaching Experience in Computer Science
+CS 4090
+Introduction to Compilers
+CS 4120
+Practicum in Compilers
+CS 4121
+Advanced Topics in Computer Game Architecture
+CS 4152
+Numerical Analysis: Linear and Nonlinear Problems
+CS 4220
+Language and Information
+CS 4300
+Operating Systems
+CS 4410
+Practicum in Operating Systems
+CS 4411
+Systems Programming
+CS 4414
+Introduction to Computer Networks
+CS 4450
+Introduction to Computer Vision
+CS 4670
+Foundations of Artificial Intelligence
+CS 4700
+Practicum in Artificial Intelligence
+CS 4701
+Computational Linguistics I
+CS 4744
+Robot Learning
+CS 4756
+Autonomous Mobile Robots
+CS 4758
+Introduction to Machine Learning
+CS 4780
+Introduction to Reinforcement Learning
+CS 4789
+Introduction to Analysis of Algorithms
+CS 4820
+Introduction to Cryptography
+CS 4830
+Networks II: Market Design
+CS 4852
+Practical Training in Computer Science
+CS 4997
+Team Projects
+CS 4998
+Independent Reading and Research
+CS 4999
+Introduction to Compilers
+CS 5120
+Practicum in Compilers
+CS 5121
+Advanced Topics in Computer Game Architecture
+CS 5152
+Applications of Parallel Computers
+CS 5220
+Numerical Analysis: Linear and Nonlinear Problems
+CS 5223
+Data Science in the Wild
+CS 5304
+Building Startup Systems
+CS 5356
+Operating Systems
+CS 5410
+Practicum in Operating Systems
+CS 5411
+Distributed Computing Principles
+CS 5414
+Blockchains, Cryptocurrencies, and Smart Contracts
+CS 5433
+Privacy in the Digital Age
+CS 5436
+Introduction to Computer Networks
+CS 5456
+Physically Based Animation for Computer Graphics
+CS 5643
+Introduction to Computer Vision
+CS 5670
+Topics in Mixed Reality
+CS 5678
+Foundations of Artificial Intelligence
+CS 5700
+Learning, Inference, and Decision Making from Data
+CS 5726
+Mobile Human Robot Interaction Design
+CS 5755
+Robot Learning
+CS 5756
+Autonomous Mobile Robots
+CS 5758
+Introduction to Machine Learning
+CS 5780
+Deep Learning
+CS 5787
+Introduction to Reinforcement Learning
+CS 5789
+Introduction to Analysis of Algorithms
+CS 5820
+Cryptography
+CS 5830
+Master of Engineering Internship
+CS 5998
+Master of Engineering Project
+CS 5999
+Advanced Programming Languages
+CS 6110
+Certified Software Systems
+CS 6115
+Runtime Verification
+CS 6156
+Advanced Database Systems
+CS 6320
+Data Science for Social Change
+CS 6382
+Advanced Computer Networking
+CS 6450
+Computation for Content Creation
+CS 6682
+Advanced Artificial Intelligence
+CS 6700
+Advanced Language Technologies
+CS 6740
+Topics in Natural Language Processing and Machine Learning
+CS 6741
+Mobile Human Robot Interaction Design
+CS 6755
+Deep Probabilistic and Generative Models
+CS 6785
+Foundations of Reinforcement Learning
+CS 6789
+Designing Secure Cryptography
+CS 6831
+The Structure of Information Networks
+CS 6850
+Computer Science Colloquium
+CS 7090
+Seminar in Programming Languages
+CS 7190
+Seminar on Scientific Computing and Numerics
+CS 7290
+Database Seminar
+CS 7390
+Systems Research Seminar
+CS 7490
+Computer Graphics and Vision Seminar
+CS 7690
+Seminar in Artificial Intelligence
+CS 7790
+Special Topics in Machine Learning
+CS 7792
+Seminar in Natural Language Understanding
+CS 7794
+Robotics Seminar
+CS 7796
+Seminar in Theory of Algorithms and Computing
+CS 7890
+Independent Research
+CS 7999
