@@ -150,7 +150,9 @@ class User(db.Model):
 
     name = db.Column(db.String, nullable = True)
     bio = db.Column(db.String, nullable = True)
-    gradYear = db.Column(db.Integer, nullable = True)
+    grad_year = db.Column(db.Integer, nullable = True)
+    picture_id = db.Column(db.String, nullable = False)
+    #number = db.Column(db.String, nullable = False)
     posts = db.relationship("Post", cascade = "delete")
     comments = db.relationship("Comment", cascade = "delete")
     courses = db.relationship("Course", secondary = association_table_users, back_populates = "users")
@@ -168,7 +170,8 @@ class User(db.Model):
         self.renew_session()
         self.name = kwargs.get("name")
         self.bio = kwargs.get("bio")
-        self.gradYear = kwargs.get("gradYear")
+        self.grad_year = kwargs.get("grad_year")
+        self.picture_id = kwargs.get("picture_id")
 
     def serialize(self):
         """
@@ -179,7 +182,8 @@ class User(db.Model):
             "username" : self.username,
             "name" : self.name,
             "bio" : self.bio,
-            "gradYear" : self.gradYear,
+            "grad_year" : self.grad_year,
+            "picture_id" : self.picture_id,
             "posts" : [post.serialize() for post in self.posts],
             "comments" : [comment.serialize() for comment in self.comments],
             "courses" : [c.simple_serialize() for c in self.courses],
@@ -198,7 +202,8 @@ class User(db.Model):
             "username" : self.username,
             "name" : self.name,
             "bio" : self.bio,
-            "gradYear" : self.gradYear,
+            "grad_year" : self.grad_year,
+            "picture_id" : self.picture_id,
             "posts" : [post.serialize() for post in self.posts],
             "comments" : [comment.serialize() for comment in self.comments]
         }
