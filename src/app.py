@@ -23,6 +23,20 @@ db.init_app(app)
 with app.app_context():
     db.drop_all()
     db.create_all()
+    courses_file = open("courses.txt", "r")
+    data = courses_file.read() 
+    data_into_list = data.split("\n")
+    courses_file.close()
+
+    for i in range(0, len(data_into_list), 2):
+        temp_code = data_into_list[i]
+        temp_name = data_into_list[i+1]
+        new_course = Course(
+            code = temp_code, 
+            name = temp_name
+        )
+        db.session.add(new_course)
+    db.session.commit()
 
 # generalized response formats
 def success_response(data, code=200):
@@ -158,6 +172,8 @@ def update_user(user_id):
     user.bio = body.get("bio", user.bio)
 
     user.grad_year = body.get("grad_year", user.grad_year)
+
+    user.number = body.get("number", user.number)
     db.session.commit()
     return json.dumps(user.serialize()), 200
 
@@ -328,6 +344,33 @@ def get_posts():
     Posts = [post.serialize() for post in Post.query.all()]
     return json.dumps({"posts" : Posts}), 200
 
+@app.route("/api/posts/<int:post_id>/attend/<int:user_id>/", methods = ["POST"])
+def user_attend_post(post_id, user_id):
+    """
+    Endpoint for having a user attend a post
+    """
+    success, session_token = extract_token(request)
+
+    if not success:
+        return failure_response("Could not extract session token", 400)
+
+    user = users_dao.get_user_by_session_token(session_token)
+    if user is None or not user.verify_session_token(session_token):
+        return failure_response("Invalid session token", 400)
+    
+    post = Post.query.filter_by(id = post_id).first()
+    if post is None:
+        return json.dumps({"error": "Post does not exist!"}), 404
+    
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return json.dumps({"error" : "User does not exist!"}), 404
+    
+    post.post_attendees.append(user)
+    db.session.commit()
+    post = Post.query.filter_by(id = post_id).first()
+    return json.dumps(post.serialize()), 200
+
 @app.route("/api/posts/<int:post_id>/add/", methods = ["POST"])
 def create_comment_for_post(post_id):
     """
@@ -344,7 +387,7 @@ def create_comment_for_post(post_id):
     
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
-        return json.dumps({"error": "Post does not exist"}), 404
+        return json.dumps({"error": "Post does not exist!"}), 404
     
     body = json.loads(request.data)
     user_id = body.get("user_id")
@@ -352,7 +395,7 @@ def create_comment_for_post(post_id):
         return json.dumps({"error" : "User id not found!"}), 400
     user = User.query.filter_by(id = user_id).first()
     if user is None:
-        return json.dumps({"error" : "User does not exist"}), 404
+        return json.dumps({"error" : "User does not exist!"}), 404
 
     commentBody = body.get("body")
     if commentBody is None:

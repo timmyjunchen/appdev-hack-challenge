@@ -13,12 +13,17 @@ association_table_users = db.Table(
     db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
 )
 
-
 association_table_friends = db.Table(
-    'association_table_friends',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), index=True),
-    db.Column('friend_id', db.Integer, db.ForeignKey('user.id')),
-    db.UniqueConstraint('user_id', 'friend_id', name='unique_friendships'))
+    "association_table_friends",
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id"), index=True),
+    db.Column("friend_id", db.Integer, db.ForeignKey("user.id")),
+    db.UniqueConstraint("user_id", "friend_id", name="unique_friendships"))
+
+association_table_post_members = db.Table(
+    "association_table_post_members",
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
+    db.Column("post_id", db.Integer, db.ForeignKey("post.id"))
+)
 
 # your classes here
 class Post(db.Model):
@@ -35,6 +40,11 @@ class Post(db.Model):
     meetupTime = db.Column(db.String, nullable = True)
     comments = db.relationship("Comment", cascade = "delete")
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
+    post_attendees = db.relationship(
+        "User", 
+        secondary = association_table_post_members, 
+        back_populates = "posts_attending"
+    )
 
     def __init__(self, **kwargs):
         """
@@ -58,8 +68,24 @@ class Post(db.Model):
             "timestamp" : self.timestamp,
             "location" : self.location,
             "meetupTime" : self.meetupTime,
+            "user_id" : self.user_id,
             "comments" : [comment.serialize() for comment in self.comments],
-            "user_id" : self.user_id
+            "post_attendees" : [user.simple_serialize() for user in self.post_attendees]
+        }
+    
+    def simple_serialize(self):
+        """
+        Simple serializes a post object
+        """
+        return {
+            "id" : self.id,
+            "header" : self.header,
+            "body" : self.body,
+            "timestamp" : self.timestamp,
+            "location" : self.location,
+            "meetupTime" : self.meetupTime,
+            "user_id" : self.user_id,
+            "comments" : [comment.serialize() for comment in self.comments],
         }
 
 class Comment(db.Model):
@@ -152,14 +178,18 @@ class User(db.Model):
     bio = db.Column(db.String, nullable = True)
     grad_year = db.Column(db.Integer, nullable = True)
     picture_id = db.Column(db.String, nullable = False)
-    #number = db.Column(db.String, nullable = False)
+    number = db.Column(db.String, nullable = True)
     posts = db.relationship("Post", cascade = "delete")
     comments = db.relationship("Comment", cascade = "delete")
     courses = db.relationship("Course", secondary = association_table_users, back_populates = "users")
-    friends = db.relationship('User',
-                           secondary=association_table_friends,
-                           primaryjoin=id==association_table_friends.c.user_id,
-                           secondaryjoin=id==association_table_friends.c.friend_id)
+    posts_attending = db.relationship("Post", 
+        secondary = association_table_post_members, 
+        back_populates = "post_attendees")
+    friends = db.relationship("User",
+        secondary=association_table_friends,
+        primaryjoin=id==association_table_friends.c.user_id,
+        secondaryjoin=id==association_table_friends.c.friend_id
+    )
 
     def __init__ (self, **kwargs):
         """
@@ -172,6 +202,7 @@ class User(db.Model):
         self.bio = kwargs.get("bio")
         self.grad_year = kwargs.get("grad_year")
         self.picture_id = kwargs.get("picture_id")
+        self.number = kwargs.get("number")
 
     def serialize(self):
         """
@@ -184,9 +215,11 @@ class User(db.Model):
             "bio" : self.bio,
             "grad_year" : self.grad_year,
             "picture_id" : self.picture_id,
+            "number" : self.number,
             "posts" : [post.serialize() for post in self.posts],
             "comments" : [comment.serialize() for comment in self.comments],
             "courses" : [c.simple_serialize() for c in self.courses],
+            "posts_attending" : [post.simple_serialize() for post in self.posts_attending],
             "friends" : [f.simple_serialize() for f in self.friends],
             "session_token": self.session_token,
             "session_expiration" : str(self.session_expiration),
@@ -195,7 +228,7 @@ class User(db.Model):
 
     def simple_serialize(self):
         """
-        Serializes a User object without courses
+        Serializes a User object without courses and without posts
         """
         return {
             "id" : self.id,
@@ -204,7 +237,7 @@ class User(db.Model):
             "bio" : self.bio,
             "grad_year" : self.grad_year,
             "picture_id" : self.picture_id,
-            "posts" : [post.serialize() for post in self.posts],
+            "number" : self.number,
             "comments" : [comment.serialize() for comment in self.comments]
         }
 
