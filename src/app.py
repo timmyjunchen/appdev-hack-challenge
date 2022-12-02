@@ -21,7 +21,7 @@ app.config["SQLALCHEMY_ECHO"] = True
 
 db.init_app(app)
 with app.app_context():
-    #db.drop_all()
+    db.drop_all()
     db.create_all()
 
 # generalized response formats
@@ -134,7 +134,8 @@ def create_user():
 
     new_user = User(
         username = username, 
-        password = password
+        password = password,
+        picture_id = "default"
     )
     db.session.add(new_user)
     db.session.commit()
@@ -150,16 +151,31 @@ def update_user(user_id):
     user = User.query.filter_by(id = user_id).first()
 
     if user is None:
-        return json.dumps({"error" : "User does not exist"}), 400
+        return json.dumps({"error" : "User does not exist"}), 404
 
     user.name = body.get("name", user.name)
     
     user.bio = body.get("bio", user.bio)
 
-    user.gradYear = body.get("gradYear", user.gradYear)
+    user.grad_year = body.get("grad_year", user.grad_year)
     db.session.commit()
     return json.dumps(user.serialize()), 200
 
+@app.route("/api/users/<int:user_id>/picture/", methods = ["POST"])
+def update_picture(user_id):
+    """
+    Endpoint for updating a picture
+    """
+    body = json.loads(request.data)
+    user = User.query.filter_by(id = user_id).first()
+
+    if user is None:
+        return json.dumps({"error" : "User does not exist"}), 404
+    
+    user.picture_id = body.get("picture_id", "default")
+
+    db.session.commit()
+    return json.dumps(user.serialize()), 200
 
 @app.route("/api/users/<int:user_id>/")
 def get_user(user_id):
