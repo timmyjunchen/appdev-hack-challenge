@@ -21,7 +21,7 @@ app.config["SQLALCHEMY_ECHO"] = True
 
 db.init_app(app)
 with app.app_context():
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
     courses_file = open("courses.txt", "r")
     data = courses_file.read() 
@@ -313,6 +313,9 @@ def create_post_for_user(user_id):
     meetup_time = body.get("meetup_time")
     if meetup_time is None:
         return json.dumps({"error" : "Meetup time not found!"}), 400
+    course_id = body.get("course_id")
+    if course_id is None:
+        return json.dumps({"error" : "Course id not found!"}), 400
 
     new_post = Post(
         header = header, 
@@ -320,7 +323,8 @@ def create_post_for_user(user_id):
         timestamp = timestamp, 
         location = location, 
         meetupTime = meetup_time,
-        user_id = user_id
+        user_id = user_id,
+        course_id = course_id
     )
 
     db.session.add(new_post)
@@ -330,17 +334,8 @@ def create_post_for_user(user_id):
 @app.route("/api/posts/")
 def get_posts():
     """
-    Endpoint for getting all posts, requires authentication
+    Endpoint for getting all posts
     """
-    success, session_token = extract_token(request)
-
-    if not success:
-        return failure_response("Could not extract session token", 400)
-
-    user = users_dao.get_user_by_session_token(session_token)
-    if user is None or not user.verify_session_token(session_token):
-        return failure_response("Invalid session token", 400)
-    
     Posts = [post.serialize() for post in Post.query.all()]
     return json.dumps({"posts" : Posts}), 200
 
