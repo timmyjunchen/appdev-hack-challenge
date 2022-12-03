@@ -2,7 +2,11 @@ import json
 import os
 from datetime import datetime
 import users_dao
-
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.combining import OrTrigger
+from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.triggers.cron import CronTrigger
+from twilio.rest import Client
 
 from db import db
 from flask import Flask
@@ -18,6 +22,28 @@ db_filename = "study.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
+
+def run_text_notifications():
+    """
+    Sends text notifications to users depending on the current day
+    """
+    account_sid = os.environ["TWILIO_ACCOUNT_SID"] #"AC422d815a50767c353c6ab06fd0d1a21d"
+    auth_token = os.environ["TWILIO_AUTH_TOKEN"] #"7814ad7fdd99cffef9dddb84b1c690ba"
+    client = Client(account_sid, auth_token)
+    posts = Post.query.all()
+
+    for post in posts:
+        time = datetime.strptime(post.meetupTime, "%m.%d.%y %H:%M:%S")
+        if time.weekday() == datetime.today().weekday():
+            users = post.post_attendees
+            for user in users:
+                message = client.messages \
+                        .create(
+                            body="Hi " + user.name +"! You have a study session today at " + str(time.time()) + ".",
+                            from_='+13608032457',
+                            to= user.number
+                        )
+                print(message.sid)
 
 db.init_app(app)
 with app.app_context():
@@ -37,6 +63,18 @@ with app.app_context():
         )
         db.session.add(new_course)
     db.session.commit()
+
+    run_text_notifications()
+    scheduler = BackgroundScheduler()
+    trigger = OrTrigger([CronTrigger(day_of_week='sun', hour=0, minute= 0),
+                     CronTrigger(day_of_week='mon', hour=0, minute = 0),
+                     CronTrigger(day_of_week='tue', hour=0, minute = 0),
+                     CronTrigger(day_of_week='wed', hour=0, minute = 0),
+                     CronTrigger(day_of_week='thu', hour=0, minute = 0),
+                     CronTrigger(day_of_week='fri', hour=0, minute = 0),
+                     CronTrigger(day_of_week='sat', hour=0, minute = 0)])
+    scheduler.add_job(run_text_notifications, trigger)
+    scheduler.start()   
 
 # generalized response formats
 def success_response(data, code=200):
@@ -313,9 +351,9 @@ def create_post_for_user(user_id):
     meetup_time = body.get("meetup_time")
     if meetup_time is None:
         return json.dumps({"error" : "Meetup time not found!"}), 400
-    course_id = body.get("course_id")
-    if course_id is None:
-        return json.dumps({"error" : "Course id not found!"}), 400
+    course = body.get("course")
+    if course is None:
+        return json.dumps({"error" : "Course not found!"}), 400
 
     new_post = Post(
         header = header, 
@@ -324,7 +362,7 @@ def create_post_for_user(user_id):
         location = location, 
         meetupTime = meetup_time,
         user_id = user_id,
-        course_id = course_id
+        course = course
     )
 
     db.session.add(new_post)

@@ -39,9 +39,9 @@ class Post(db.Model):
     timestamp = db.Column(db.String, nullable = False)
     location = db.Column(db.String, nullable = True)
     meetupTime = db.Column(db.String, nullable = True)
+    course = db.Column(db.String, nullable = True)
     comments = db.relationship("Comment", cascade = "delete")
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
-    course_id = db.Column(db.Integer, db.ForeignKey("course.id"), nullable = False)
     post_attendees = db.relationship(
         "User", 
         secondary = association_table_post_members, 
@@ -58,7 +58,7 @@ class Post(db.Model):
         self.location = kwargs.get("location")
         self.meetupTime = kwargs.get("meetupTime")
         self.user_id = kwargs.get("user_id")
-        self.course_id = kwargs.get("course_id")
+        self.course = kwargs.get("course")
 
     def serialize(self):
         """
@@ -72,7 +72,7 @@ class Post(db.Model):
             "location" : self.location,
             "meetupTime" : self.meetupTime,
             "user_id" : self.user_id,
-            "course_id" : self.course_id,
+            "course" : self.course,
             "comments" : [comment.serialize() for comment in self.comments],
             "post_attendees" : [user.simple_serialize() for user in self.post_attendees]
         }
@@ -89,7 +89,7 @@ class Post(db.Model):
             "location" : self.location,
             "meetupTime" : self.meetupTime,
             "user_id" : self.user_id,
-            "course_id" : self.course_id,
+            "course" : self.course,
             "comments" : [comment.serialize() for comment in self.comments],
         }
 
@@ -132,7 +132,6 @@ class Course(db.Model):
     code = db.Column(db.Integer, nullable = False)
     name = db.Column(db.String, nullable = False)
     users = db.relationship("User", secondary = association_table_users, back_populates = "courses")
-    posts = db.relationship("Post", cascade = "delete")
 
     def __init__(self, **kwargs):
         """
