@@ -192,3 +192,583 @@ Seminar in Theory of Algorithms and Computing
 CS 7890
 Independent Research
 CS 7999
+Modeling with Calculus for the Life Sciences
+MATH 1106
+Calculus I
+MATH 1110
+Calculus II
+MATH 1120
+Strategy, Cooperation, and Conflict
+MATH 1340
+Statistical Theory and Application in the Real World
+MATH 1710
+Calculus for Engineers
+MATH 1910
+Multivariable Calculus for Engineers
+MATH 1920
+Calculus III
+MATH 2130
+Linear Algebra
+MATH 2210
+Multivariable Calculus
+MATH 2220
+Theoretical Linear Algebra and Calculus
+MATH 2240
+Deductive Logic
+MATH 2810
+Differential Equations for Engineers
+MATH 2930
+Linear Algebra for Engineers
+MATH 2940
+Prove It!
+MATH 3040
+Introduction to Analysis
+MATH 3110
+Introduction to Number Theory
+MATH 3320
+Abstract Algebra
+MATH 3340
+Applicable Algebra
+MATH 3360
+Introduction to Set Theory
+MATH 3840
+Modal Logic
+MATH 3850
+Honors Introduction to Analysis I
+MATH 4130
+Honors Introduction to Analysis II
+MATH 4140
+Complex Analysis
+MATH 4180
+Nonlinear Dynamics and Chaos
+MATH 4210
+Numerical Analysis: Linear and Nonlinear Problems
+MATH 4260
+Introduction to Partial Differential Equations
+MATH 4280
+Linear Algebra
+MATH 4310
+Honors Introduction to Algebra
+MATH 4340
+Matrix Groups
+MATH 4500
+Introduction to Differential Geometry
+MATH 4540
+Applicable Geometry
+MATH 4550
+Basic Probability
+MATH 4710
+Statistics
+MATH 4720
+Stochastic Processes
+MATH 4740
+Introduction to Critical Thinking for the Sciences
+CHEM 1080
+Introduction to Organic and Biological Chemistry
+CHEM 1570
+General Chemistry I
+CHEM 2070
+General Chemistry II
+CHEM 2080
+Engineering General Chemistry
+CHEM 2090
+Introduction to Experimental Organic Chemistry
+CHEM 2510
+Methods in Chemical Education II
+CHEM 2780
+Introductory Physical Chemistry Laboratory
+CHEM 2900
+Honors Experimental Chemistry I
+CHEM 3010
+Honors Experimental Chemistry III
+CHEM 3030
+Organic Chemistry for the Life Sciences
+CHEM 3580
+Honors Organic Chemistry I
+CHEM 3590
+Physical Chemistry of Solutions, Moving Charges, and Spectroscopy
+CHEM 3880
+Honors Physical Chemistry II
+CHEM 3900
+Entrepreneurship in Chemical Enterprise
+CHEM 4040
+Inorganic Chemistry
+CHEM 4100
+Introduction to Inorganic Chemistry Research
+CHEM 4210
+Introduction to Analytical Chemistry Research
+CHEM 4330
+Introduction to Chemical Biology Research
+CHEM 4430
+Introduction to Organic Chemistry Research
+CHEM 4610
+Introduction to Physical Chemistry Research
+CHEM 4770
+Computational Methods in Chemistry
+CHEM 4810
+Introductory Biology: Comparative Physiology
+BIOG 1440
+Introduction to Comparative Anatomy and Physiology, Individualized Instruction
+BIOG 1445
+Investigative Biology Laboratory
+BIOG 1500
+Introduction to Research Methods in Biology
+BIOG 2990
+Introduction to Experimental Physics
+PHYS 1110
+Physics I: Mechanics and Heat
+PHYS 1112
+Physics I: Mechanics and Special Relativity
+PHYS 1116
+Physics of Musical Sound
+PHYS 1204
+Fundamentals of Physics II
+PHYS 2208
+Physics II: Electromagnetism
+PHYS 2213
+Physics III: Oscillations, Waves, and Quantum Physics
+PHYS 2214
+Physics II: Electricity and Magnetism
+PHYS 2217
+Physics III: Waves and Thermal Physics
+PHYS 2218
+Intermediate Experimental Physics
+PHYS 3310
+Basics of Quantum Mechanics
+PHYS 3316
+Analytical Mechanics
+PHYS 3318
+Electronic Circuits
+PHYS 3360
+Informal Advanced Laboratory
+PHYS 4400
+Advanced Experimental Physics
+PHYS 4410
+Intermediate Quantum Mechanics
+PHYS 4443
+Introduction to Particle Physics
+PHYS 4444
+Statistical Mechanics
+PHYS 4488
+Introductory Microeconomics
+ECON 1110
+Introductory Macroeconomics
+ECON 1120
+International Trade and Finance
+ECON 2300
+Intermediate Microeconomic Theory
+ECON 3030
+Intermediate Macroeconomic Theory
+ECON 3040
+Probability Models and Inference for the Social Sciences
+ECON 3110
+Applied Econometrics
+ECON 3120
+Econometrics
+ECON 3140
+Development of Economic Thought and Institutions
+ECON 3300
+Compensation, Incentives, and Productivity
+ECON 3430
+New Technologies and the Labor Market
+ECON 3485
+Economics of Developing Countries
+ECON 3550
+Behavioral Economics and Public Policy
+ECON 3670
+Inequality in U.S. Higher Education
+ECON 3770
+Networks II: Market Design
+ECON 3825
+Urban Economics
+ECON 3855
+Resource Economics
+ECON 3860
+Environmental Economics
+ECON 3865
+Policy Analysis: Welfare Theory, Agriculture, and Trade
+ECON 3875
+Game Theory I
+ECON 4020
+Statistical Decision Theory
+ECON 4130
+Money and Credit
+ECON 4210
+State and Local Public Finance
+ECON 4270
+Applied Political Economy
+ECON 4280
+Lasers and Photonics
+ENGRI 1100
+Engineering Applications of Operations Research
+ENGRI 1101
+Sustainable Engineering of Energy, Water, Soil, and Air Resources
+ENGRI 1130
+Sustainable Materials Production and Recycling
+ENGRI 1150
+Climate Change and You, the Engineer
+ENGRI 1165
+The Computing Technology Inside Your Smartphone
+ENGRI 1210
+Statics and Mechanics of Solids
+ENGRD 2020
+Introduction to Circuits for Electrical and Computer Engineers
+ENGRD 2100
+The Earth System
+ENGRD 2250
+Digital Logic and Computer Organization
+ENGRD 2300
+Engineering Quantum Information Hardware
+ENGRD 2550
+Electronic Materials for the Information Age
+ENGRD 2620
+Basic Engineering Probability and Statistics
+ENGRD 2700
+Data Science for Engineers
+ECE 2720
+Engineering Computation
+ENGRD 3200
+Introduction to Cognitive Science
+PSYCH 1102
+FWS:Personality & Social Psychology
+PSYCH 1120
+Introduction to Human Development
+PSYCH 1131
+Perception
+PSYCH 2050
+Developmental Psychology
+PSYCH 2090
+Psychology of Language
+PSYCH 2150
+Psychological Assessment
+PSYCH 2225
+Six Pretty Good Books: Explorations in Social Science
+PSYCH 2580
+Introduction to Personality
+PSYCH 2750
+Introduction to Data Science for Social Scientists
+PSYCH 2930
+Better Decisions for Life, Love and Money
+PSYCH 2940
+Language and Power
+PSYCH 3130
+Computational Psychology
+PSYCH 3140
+Obesity and the Regulation of Body Weight
+PSYCH 3150
+Adult Psychopathology
+PSYCH 3250
+Field Practicum II
+PSYCH 3280
+Biopsychology of Learning and Memory
+PSYCH 3320
+Theory and Practice of Contemporary Clinical Psychology
+PSYCH 3325
+Human Perception: Application to Computer Graphics, Art, and Visual Display
+PSYCH 3420
+On Being Social
+PSYCH 3450
+Navigation, Memory, and Context: What Does the Hippocampus Do?
+PSYCH 4230
+Topics in Cognitive Science
+PSYCH 4320
+Neural Circuits for Social Behavior
+PSYCH 4390
+The Science of Social Behavior
+PSYCH 4580
+Neural Representations
+PSYCH 4600
+Social Neuroscience
+PSYCH 4830
+Moral Psychology in Action
+PSYCH 4940
+Data Science for All
+ORIE 1380
+Practical Tools for Operations Research, Machine Learning and Data Science
+ORIE 3120
+Optimization II
+ORIE 3310
+Introduction to Engineering Stochastic Processes I
+ORIE 3510
+Principles of Supply Chain Management
+ORIE 4126
+Entrepreneurship for Engineers
+ORIE 4152
+Revenue Optimization and Marketplace Design
+ORIE 4154
+Topics in Data Science and OR
+ORIE 4160
+Introduction to Financial Engineering
+ORIE 4600
+Learning with Big Messy Data
+ORIE 4741
+Spreadsheet-Based Modeling and Data Analysis
+ORIE 4820
+The Computing Technology Inside Your Smartphone
+ECE 1210
+Introduction to Circuits for Electrical and Computer Engineers
+ECE 2100
+Digital Logic and Computer Organization
+ECE 2300
+Introduction to Probability and Inference for Random Signals and Systems
+ECE 3100
+Introduction to Microelectronics
+ECE 3150
+Physics of Semiconductors and Nanostructures
+ECE 4070
+GPS: Theory and Design
+ECE 4150
+Fast Robots
+ECE 4160
+Autonomous Mobile Robots
+ECE 4180
+Fundamentals of Machine Learning
+ECE 4200
+Lasers and Optoelectronics
+ECE 4300
+Integrated Micro Sensors and Actuators: Bridging the Physical and Digital Worlds
+ECE 4320
+Photonics: Fundamentals and Devices
+ECE 4370
+Electromagnetic and Optical Metamaterials
+ECE 4380
+Power Systems and Market Operations
+ECE 4520
+Digital Communication System Design
+ECE 4670
+Introduction to Digital (VLSI) Design
+ECE 4740
+Introduction to Controlled Fusion: Principles and Technology
+ECE 4840
+Principles of Neurophysiology
+ECE 4910
+Special Topics in Electrical and Computer Engineering
+ECE 4960
+Introductory Design and Programming for the Web
+INFO 1300
+Inventing an Information Society
+INFO 2921
+Introduction to Data Science
+INFO 2950
+Introduction to Computer Game Design
+INFO 3521
+New Media and Society
+INFO 3200
+Data Communication
+INFO 3312
+Studying Social Inequality Using Data Science
+INFO 3370
+Human-Computer Interaction Design
+INFO 3450
+Data Analytics for Information Science
+INFO 3950
+Advanced Topics in Computer Game Design
+INFO 4152
+Artificial Intelligence: Law, Ethics, and Politics
+INFO 4210
+Networks II: Market Design
+INFO 4220
+Surveillance and Privacy
+INFO 4250
+Computing On Earth: Planetary Dimensions and Consequence of Computing
+INFO 4260
+Language and Information
+INFO 4300
+Interactive Information Visualization
+INFO 4310
+Introduction to Rapid Prototyping and Physical Computing
+INFO 4320
+App Design and Prototyping
+INFO 4340
+Communication Networks and Social Capital
+INFO 4360
+Qualitative User Research and Design Methods
+INFO 4400
+Computer-Mediated Communication
+INFO 4450
+Evaluation and Society
+INFO 4561
+Special Topics in Information Science
+INFO 4940
+Organizational Behavior and Leadership Skills
+HADM 1150
+Financial Accounting
+HADM 1210
+Introduction to Hotel Operations
+HADM 1350
+Principles of Food and Beverage Operations Management
+HADM 1361
+Microeconomics for the Service Industry
+HADM 1410
+Business Writing for Hospitality Professionals
+HADM 1650
+Business Computing
+HADM 1740
+Hospitality Quantitative Analysis
+HADM 2010
+Hospitality Quantitative Analysis
+HADM 2011
+Hotel Leadership Development Program
+HADM 2170
+Managerial Accounting
+HADM 2210
+Finance
+HADM 2220
+Financial Accounting Principles
+HADM 2230
+Finance
+HADM 2250
+Food Service Management, Theory and Practice
+HADM 2360
+Marketing Principles
+HADM 2410
+Marketing Management for Services
+HADM 2430
+Hospitality Development and Planning
+HADM 2550
+Information Retrieval and Research Methods
+HADM 2720
+Business Computing
+HADM 2740
+Human Resources Management
+HADM 2810
+Service Operations Management
+HADM 3010
+Experiential Networking II
+HADM 3121
+Principles of Hospitality Real Estate
+HADM 3210
+Intermediate Corporate Finance
+HADM 3235
+Restaurant Management
+HADM 3350
+Foodservice Management Essentials
+HADM 3365
+Consumer Behavior
+HADM 3470
+Hospitality Facilities Management
+HADM 3550
+Persuasive Business Communication for Hospitality Leaders
+HADM 3650
+Python Programming
+HADM 3710
+Fundamentals of Database Management and Data Analysis
+HADM 3740
+Business and Hospitality Law
+HADM 3870
+Law for Hotel Owners and Operators
+HADM 3880
+Entrepreneurial Management
+HADM 4130
+Innovation and Corporate Renewal
+HADM 4140
+Principles of Real Estate
+HADM 4200
+Real Estate Financial Modeling
+HADM 4205
+Real Estate Finance and Investments
+HADM 4280
+Introduction to Wines
+HADM 4300
+Wine and Food Pairing Principles and Promotion
+HADM 4310
+Nonprofit Social Enterprise and Food Justice
+HADM 4315
+Introduction to Fermented Grains, Hard Ciders, and Sake
+HADM 4375
+Strategic Management
+HADM 4410
+Wine Marketing
+HADM 4430
+Luxury Marketing
+HADM 4435
+Integrated Marketing Communication and Digital Media
+HADM 4490
+Sustainable Development
+HADM 4500
+Foodservice Facilities Design
+HADM 4530
+Visual Basic for Applications: End-User Programming
+HADM 4760
+Advanced Business Modeling
+HADM 4770
+Law for Entrepreneurs
+HADM 4800
+Real Estate Law
+HADM 4870
+Hotel Ezra Cornell (H.E.C.)
+HADM 4910
+FWS: Power and Politics
+GOVT 1101
+Introduction to Comparative Government and Politics
+GOVT 1313
+Introduction to Africana Studies
+GOVT 1503
+Introduction to Political Theory
+GOVT 1615
+Prison Literature: Race, Carcerality, and Abolition
+GOVT 2006
+Moral Dilemmas in the Law
+GOVT 2432
+Judeophobia, Islamophobia, Racism
+GOVT 2523
+Inside Europe
+GOVT 2553
+Twentieth Century Political Theory
+GOVT 2635
+History of the Modern Middle East
+GOVT 2747
+Roman Law
+GOVT 2806
+Native Politics and the Nation-to-Nation Relationship
+GOVT 3051
+Enduring Global and American Issues
+GOVT 3071
+International Human Rights Law and Advocacy
+GOVT 3087
+Strategic Advocacy: Lobbying and Interest Group Politics in Washington, D.C.
+GOVT 3092
+Congress and the Legislative Process
+GOVT 3112
+The Nature, Functions, and Limits of Law
+GOVT 3131
+Nationalism and Identity
+GOVT 3174
+The Whites are Here to Stay: US-Africa Policy from Nixon to Date
+GOVT 3211
+Political Journalism
+GOVT 3221
+Reflecting on the Intersections of Education and Prison Systems
+GOVT 3242
+Germany in Europe
+GOVT 3253
+Data Science Applications in Political and Social Research
+GOVT 3282
+Global Democracy in Crisis
+GOVT 3284
+China-Africa Relations
+GOVT 3333
+Southeast Asian Politics
+GOVT 3443
+Comparative Public Policy: Political Pathways to Equality
+GOVT 3583
+Fables of Capitalism
+GOVT 3606
+Politics of Sustainable Development in Latin America III
+GOVT 3623
+Colonialism and Anticolonialism
+GOVT 3715
+WIM: The Cold War
+GOVT 3837
+Major Seminar
+GOVT 4000
+American Conservative Thought
+GOVT 4021
+Making Sense of China: The Capstone Seminar
+GOVT 4037
+History of the United States Senate
+GOVT 4218
+Becoming a China Hand
+GOVT 4503
+Spinoza and the New Spinozism
+GOVT 4769
