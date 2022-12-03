@@ -2,15 +2,19 @@ import json
 import os
 from datetime import datetime
 import users_dao
+
+#Cronjob libaries
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.combining import OrTrigger
-from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
+
+#Twilio third-party libary
 from twilio.rest import Client
 
-from db import db
 from flask import Flask
 from flask import request
+
+from db import db
 from db import Course
 from db import User
 from db import Comment
@@ -27,11 +31,15 @@ def run_text_notifications():
     """
     Sends text notifications to users depending on the current day
     """
-    account_sid = os.environ["TWILIO_ACCOUNT_SID"] #"AC422d815a50767c353c6ab06fd0d1a21d"
-    auth_token = os.environ["TWILIO_AUTH_TOKEN"] #"7814ad7fdd99cffef9dddb84b1c690ba"
+    #Setting up the Twilio Service
+    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
     client = Client(account_sid, auth_token)
+
+    #Getting all of the posts that need have messages sent to
     posts = Post.query.all()
 
+    #Sending messages to users of posts that are scheduled on the same weekday
     for post in posts:
         time = datetime.strptime(post.meetupTime, "%m.%d.%y %H:%M:%S")
         if time.weekday() == datetime.today().weekday():
@@ -49,6 +57,8 @@ db.init_app(app)
 with app.app_context():
     #db.drop_all()
     db.create_all()
+
+    #Adding some preset courses at Cornell
     courses_file = open("courses.txt", "r")
     data = courses_file.read() 
     data_into_list = data.split("\n")
@@ -64,6 +74,7 @@ with app.app_context():
         db.session.add(new_course)
     db.session.commit()
 
+    #Scheduling text notifications to be run at midnight every weekday
     run_text_notifications()
     scheduler = BackgroundScheduler()
     trigger = OrTrigger([CronTrigger(day_of_week='sun', hour=0, minute= 0),
@@ -313,7 +324,6 @@ def add_course_to_user(user_id):
         return json.dumps({"error" : "Course does not exist!"}), 404
     
     user.courses.append(course)
-    #course.users.append(user)
     db.session.commit()
     user = User.query.filter_by(id = user_id).first()
     return json.dumps(user.serialize()), 200
@@ -360,7 +370,7 @@ def create_post_for_user(user_id):
         body = post_body, 
         timestamp = timestamp, 
         location = location, 
-        meetupTime = meetup_time,
+        meetup_time = meetup_time,
         user_id = user_id,
         course = course
     )

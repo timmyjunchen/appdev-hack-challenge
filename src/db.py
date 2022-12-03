@@ -30,7 +30,6 @@ class Post(db.Model):
     """
     Has a many to one relationship with users
     Has a one to many relationship with comments
-    Has a many to one relationship with courses
     """
     __tablename__ = "post"
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
@@ -38,7 +37,7 @@ class Post(db.Model):
     body = db.Column(db.String, nullable = False)
     timestamp = db.Column(db.String, nullable = False)
     location = db.Column(db.String, nullable = True)
-    meetupTime = db.Column(db.String, nullable = True)
+    meetup_time = db.Column(db.String, nullable = True)
     course = db.Column(db.String, nullable = True)
     comments = db.relationship("Comment", cascade = "delete")
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
@@ -56,7 +55,7 @@ class Post(db.Model):
         self.body = kwargs.get("body")
         self.timestamp = kwargs.get("timestamp")
         self.location = kwargs.get("location")
-        self.meetupTime = kwargs.get("meetupTime")
+        self.meetup_time = kwargs.get("meetup_time")
         self.user_id = kwargs.get("user_id")
         self.course = kwargs.get("course")
 
@@ -163,7 +162,7 @@ class Course(db.Model):
 
 class User(db.Model):
     """
-    Has a one to many relationship with posts
+    Has a one to many and many to many relationship with posts
     Has a one to many relationship with comments
     Has a many to many relationship with courses
     """
