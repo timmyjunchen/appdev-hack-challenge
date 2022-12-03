@@ -32,8 +32,8 @@ def run_text_notifications():
     Sends text notifications to users depending on the current day
     """
     #Setting up the Twilio Service
-    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+    account_sid = "AC422d815a50767c353c6ab06fd0d1a21d"#os.environ["TWILIO_ACCOUNT_SID"]
+    auth_token = "463ec71ce398facc3af7a96c79bd6bde"#os.environ["TWILIO_AUTH_TOKEN"]
     client = Client(account_sid, auth_token)
 
     #Getting all of the posts that need have messages sent to
